@@ -7,36 +7,45 @@
     tools:context=".MainActivity">
 
     <RelativeLayout
-        android:id="@+id/button_layout"
+        android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <Button
-            android:id="@+id/prev_cnt_btn"
+        <LinearLayout
+            android:id="@+id/btn_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/prev_cnt_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Prev : "
+                android:enabled="false"
+                android:layout_weight="1"/>
+            <Button
+                android:layout_toRightOf="@id/prev_cnt_btn"
+                android:id="@+id/current_cnt_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Current : "
+                android:enabled="false"
+                android:layout_weight="1"/>
+            <Button
+                android:layout_toRightOf="@id/current_cnt_btn"
+                android:id="@+id/reset_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rst Cnt"
+                android:layout_weight="1"/>
+            <Button
+                android:layout_toRightOf="@id/reset_btn"
+                android:id="@+id/clear_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Clear"
+                android:layout_weight="1"/>
+        </LinearLayout>
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Prev : "
-            android:enabled="false"/>
-        <Button
-            android:layout_toRightOf="@id/prev_cnt_btn"
-            android:id="@+id/current_cnt_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Current : "
-            android:enabled="false"/>
-        <Button
-            android:layout_toRightOf="@id/current_cnt_btn"
-            android:id="@+id/reset_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rst Cnt"/>
-        <Button
-            android:layout_toRightOf="@id/reset_btn"
-            android:id="@+id/clear_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Clear"/>
         <EditText
             android:id="@+id/edit_text"
             android:layout_width="match_parent"
@@ -45,7 +54,8 @@
             android:inputType="textMultiLine"
             android:scrollbars="vertical"
             android:background="@null"
-            android:layout_below="@id/current_cnt_btn"/>
+            android:layout_below="@id/btn_layout"
+            android:padding="10dp"/>
 
     </RelativeLayout>
 

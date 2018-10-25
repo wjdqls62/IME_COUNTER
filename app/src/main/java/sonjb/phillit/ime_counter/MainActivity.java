@@ -13,13 +13,15 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity implements TextWatcher, View.OnClickListener {
     private String TAG = "IME_COUNTER";
-    private String inputResult;
-    private int currentCnt, prevCount = 0;
+    private char inputResult, lastedInputChar;
+    private int currentCnt, prevCount, strLength = 0;
+    private long time;
+
 
     private Button currentBtn, prevBtn, resetBtn, clearBtn = null;
     private EditText editText = null;
 
-
+    private boolean isDebug = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,27 +47,34 @@ public class MainActivity extends Activity implements TextWatcher, View.OnClickL
     }
 
     @Override
-    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+    public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+        if(isDebug){
+            Log.d(TAG, "\nstart : " + start + "\nbefore : " + before + "\ncount : " + count);
+            Log.d(TAG, "strLength : " + charSequence.length());
+        }
+
         try {
-            
-            if (charSequence.charAt(i) != ' ') {
+            if(!isBackspace(charSequence)){
+                inputResult = charSequence.charAt(start);
+            }
+
+            if (inputResult != ' ') {
                 currentCnt += 1;
             }else{
-                if (charSequence.charAt(i) == ' ') {
+                if (inputResult == ' ') {
                     // Swift keyboard의 경우 +1 제거해야 정상적인 Count 표시됨
-                    prevCount = currentCnt + 1;
+                    prevCount = currentCnt;
                     prevBtn.setText("Prev : " + prevCount);
                     currentCnt = 0;
                     Toast.makeText(getApplicationContext(), "SpaceBar", Toast.LENGTH_SHORT).show();
                 }
             }
-
-
-
         } catch (IndexOutOfBoundsException e) {
             Log.d(TAG, "Null value...");
+            e.printStackTrace();
         } finally {
             currentBtn.setText("Current : " + currentCnt);
+            strLength = charSequence.length();
         }
     }
 
@@ -73,6 +82,14 @@ public class MainActivity extends Activity implements TextWatcher, View.OnClickL
     public void afterTextChanged(Editable editable) {
 
 
+    }
+
+    private boolean isBackspace(CharSequence charSequence){
+        if(strLength >= charSequence.length() || String.valueOf(charSequence.charAt(charSequence.length()-1)).equals(lastedInputChar)){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     private void initResource(){
@@ -100,6 +117,16 @@ public class MainActivity extends Activity implements TextWatcher, View.OnClickL
             case R.id.clear_btn :
                 clearEditText();
                 break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(System.currentTimeMillis() - time > 2000){
+            time = System.currentTimeMillis();
+            Toast.makeText(getApplicationContext(),"버튼을 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        }else if(System.currentTimeMillis()-time<2000){
+            finish();
         }
     }
 }
