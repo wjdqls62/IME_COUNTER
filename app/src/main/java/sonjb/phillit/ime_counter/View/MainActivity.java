@@ -1,14 +1,8 @@
 package sonjb.phillit.ime_counter.View;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.view.MotionEvent;
 import android.widget.Toast;
 
 import sonjb.phillit.ime_counter.R;
@@ -16,8 +10,14 @@ import sonjb.phillit.ime_counter.common.TextWatcherManager;
 
 
 public class MainActivity extends Activity {
+    interface iTouchEventCallback {
+        public void getEvent(MotionEvent event);
+        public void setCallback(iTouchEventCallback callback);
+    }
 
+    iTouchEventCallback callback;
     private TextWatcherManager textWatcherManager;
+
     private Activity activity;
     private long time;
 
@@ -29,7 +29,10 @@ public class MainActivity extends Activity {
         init();
 
 
+
     }
+
+
 
     private void init(){
         activity = MainActivity.this;
@@ -47,4 +50,14 @@ public class MainActivity extends Activity {
             finish();
         }
     }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        callback.getEvent(ev);
+        return super.dispatchTouchEvent(ev);
+    }
+
+
+
+
 }

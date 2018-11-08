@@ -21,29 +21,29 @@
                 android:layout_height="wrap_content"
                 android:text="Prev : "
                 android:enabled="false"
-                android:layout_weight="1"/>
+                android:layout_weight="2"/>
             <Button
                 android:layout_toRightOf="@id/prev_cnt_btn"
                 android:id="@+id/current_cnt_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Current : "
+                android:text="Cur : "
                 android:enabled="false"
-                android:layout_weight="1"/>
+                android:layout_weight="2"/>
             <Button
                 android:layout_toRightOf="@id/current_cnt_btn"
                 android:id="@+id/reset_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rst Cnt"
-                android:layout_weight="1"/>
+                android:layout_weight="0.5"/>
             <Button
                 android:layout_toRightOf="@id/reset_btn"
                 android:id="@+id/clear_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Clear"
-                android:layout_weight="1"/>
+                android:layout_weight="0.5"/>
         </LinearLayout>
 
         <EditText
