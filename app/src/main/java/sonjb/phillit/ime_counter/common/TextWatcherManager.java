@@ -66,8 +66,6 @@ public class TextWatcherManager implements TextWatcher, View.OnClickListener {
                     prevBtn.setText("Prev : " + prevCount);
                     currentCnt = 0;
                     Toast.makeText(context, "SpaceBar", Toast.LENGTH_SHORT).show();
-                }else if(){
-
                 }
             }
             lastedInputStr = inputStr;
