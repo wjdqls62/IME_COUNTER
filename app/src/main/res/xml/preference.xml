@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:key="auto_write_excel"
+        android:title="Auto Excel Write"
+        android:summary="TC엑셀을 읽어와 자동으로 결과를 Write합니다"
+        android:defaultValue="false"
+        />
+</PreferenceScreen>
