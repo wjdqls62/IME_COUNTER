@@ -2,6 +2,8 @@ package sonjb.phillit.ime_counter.View;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
@@ -10,14 +12,8 @@ import sonjb.phillit.ime_counter.common.TextWatcherManager;
 
 
 public class MainActivity extends Activity {
-    interface iTouchEventCallback {
-        public void getEvent(MotionEvent event);
-        public void setCallback(iTouchEventCallback callback);
-    }
-
-    iTouchEventCallback callback;
+    private final String TAG = "IME_COUNTER";
     private TextWatcherManager textWatcherManager;
-
     private Activity activity;
     private long time;
 
@@ -27,12 +23,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         init();
-
-
-
     }
-
-
 
     private void init(){
         activity = MainActivity.this;
@@ -40,6 +31,8 @@ public class MainActivity extends Activity {
                 getApplicationContext(),
                 activity);
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -50,14 +43,4 @@ public class MainActivity extends Activity {
             finish();
         }
     }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        callback.getEvent(ev);
-        return super.dispatchTouchEvent(ev);
-    }
-
-
-
-
 }
