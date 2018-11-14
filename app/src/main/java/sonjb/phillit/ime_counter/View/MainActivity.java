@@ -1,9 +1,14 @@
 package sonjb.phillit.ime_counter.View;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
@@ -15,6 +20,7 @@ public class MainActivity extends Activity {
     private final String TAG = "IME_COUNTER";
     private TextWatcherManager textWatcherManager;
     private Activity activity;
+    private SharedPreferences sharedPreferences;
     private long time;
 
     @Override
@@ -30,9 +36,37 @@ public class MainActivity extends Activity {
         textWatcherManager = new TextWatcherManager(
                 getApplicationContext(),
                 activity);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int select_menu = item.getItemId();
+
+        switch (select_menu){
+            case R.id.menu_rst_cnt :
+                textWatcherManager.resetCount();
+                break;
+            case R.id.menu_clear :
+                textWatcherManager.clearEditText();
+                break;
+            case R.id.menu_settings :
+                moveSettingActivity();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void moveSettingActivity(){
+        Intent intent = new Intent(this, SettingActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public void onBackPressed() {

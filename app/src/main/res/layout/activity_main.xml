@@ -15,35 +15,51 @@
             android:id="@+id/btn_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <Button
+            <TextView
                 android:id="@+id/prev_cnt_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Prev : "
+                android:textColor="@android:color/holo_red_dark"
                 android:enabled="false"
-                android:layout_weight="2"/>
-            <Button
-                android:layout_toRightOf="@id/prev_cnt_btn"
+                android:layout_weight="1"
+                android:background="@null"
+                android:textAlignment="center"/>
+            <TextView
                 android:id="@+id/current_cnt_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cur : "
+                android:textColor="@android:color/holo_red_dark"
                 android:enabled="false"
-                android:layout_weight="2"/>
-            <Button
-                android:layout_toRightOf="@id/current_cnt_btn"
-                android:id="@+id/reset_btn"
+                android:layout_weight="1"
+                android:background="@null"
+                android:textAlignment="center"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/excel_layout"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_layout" >
+            <TextView
+                android:id="@+id/original_word"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rst Cnt"
-                android:layout_weight="0.5"/>
-            <Button
-                android:layout_toRightOf="@id/reset_btn"
-                android:id="@+id/clear_btn"
+                android:layout_height="match_parent"
+                android:text="Excel String"
+                android:layout_weight="1"
+                android:textSize="30dp"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:id="@+id/typing_hit"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Clear"
-                android:layout_weight="0.5"/>
+                android:layout_height="match_parent"
+                android:text="Full Hit"
+                android:layout_weight="1"
+                android:textSize="20dp"
+                android:layout_gravity="center"
+                />
         </LinearLayout>
 
         <EditText
@@ -54,9 +70,10 @@
             android:inputType="textMultiLine|textCapSentences"
             android:scrollbars="vertical"
             android:background="@null"
-            android:layout_below="@id/btn_layout"
+            android:layout_below="@id/excel_layout"
             android:padding="10dp"
             />
+
 
     </RelativeLayout>
 

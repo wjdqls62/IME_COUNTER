@@ -24,7 +24,6 @@ public class TextWatcherManager implements TextWatcher, View.OnClickListener {
     private Button currentBtn, prevBtn, resetBtn, clearBtn;
     private EditText editText;
     private Context context;
-    private String deviceManufacturer;
 
 
 
@@ -36,7 +35,6 @@ public class TextWatcherManager implements TextWatcher, View.OnClickListener {
     }
 
     private void initView(){
-
         editText = activity.findViewById(R.id.edit_text);
         currentBtn = activity.findViewById(R.id.current_cnt_btn);
         prevBtn = activity.findViewById(R.id.prev_cnt_btn);
@@ -64,10 +62,10 @@ public class TextWatcherManager implements TextWatcher, View.OnClickListener {
 
             // 스페이스바 입력
             if(inputStr == ' '){
-                //prevCount += 1;
-                //prevBtn.setText("Prev : " + prevCount);
+                prevCount += 1;
+                prevBtn.setText("Prev : " + prevCount);
                 Toast.makeText(context, "Spacebar", Toast.LENGTH_SHORT).show();
-                prevCount = currentCnt;
+                prevCount = currentCnt + 1;
                 prevBtn.setText("Prev : " + prevCount);
                 currentCnt = 0;
                 }

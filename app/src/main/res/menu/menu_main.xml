@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+    android:id="@+id/menu_rst_cnt"
+    android:title="Rest Count"
+    />
+    <item
+        android:id="@+id/menu_clear"
+        android:title="Clear Text"
+        />
+    <item
+        android:id="@+id/menu_settings"
+        android:title="Settings"
+        />
+</menu>
