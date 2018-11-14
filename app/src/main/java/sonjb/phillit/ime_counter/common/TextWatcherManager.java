@@ -1,38 +1,36 @@
 package sonjb.phillit.ime_counter.common;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.inputmethod.InputMethod;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import sonjb.phillit.ime_counter.R;
 
 public class TextWatcherManager implements TextWatcher {
     private final String TAG = "IME_COUNTER";
-    private String keyboardType;
+    private String keyboardType, testType;
     private Activity activity;
+    private ArrayList<Word_Hit> wordList;
 
-    private int currentCnt, prevCount = 0;
+    private TestCaseManager testCaseManager;
+    private int currentCnt, prevCount, wordNum = 0;
     private int lastedStrLength, lastedStart= 0;
     private char inputStr;
-    private TextView current, prev, typingWord, typingHit;
+    private TextView current, prev;
     private EditText editText;
 
     private boolean isDebug = true;
 
     public TextWatcherManager(Activity activity) {
         this.activity = activity;
+
         initView();
     }
 
@@ -40,17 +38,13 @@ public class TextWatcherManager implements TextWatcher {
         editText = activity.findViewById(R.id.edit_text);
         current = activity.findViewById(R.id.current_cnt_txv);
         prev = activity.findViewById(R.id.prev_cnt_txv);
-        typingWord = activity.findViewById(R.id.typing_word);
-        typingHit = activity.findViewById(R.id.typing_hit);
 
         editText.addTextChangedListener(this);
 
-        typingWord.setVisibility(View.INVISIBLE);
-        typingHit.setVisibility(View.INVISIBLE);
-
         getKeyboardType();
 
-
+        testCaseManager = new TestCaseManager(activity);
+        testCaseManager.initWord();
     }
 
     @Override
@@ -72,6 +66,7 @@ public class TextWatcherManager implements TextWatcher {
                     prevCount = currentCnt + 1;
                     prev.setText("Prev : " + prevCount);
                     currentCnt = 0;
+                    testCaseManager.nextWord();
 
                 } else {
                     if (inputStr != ' ') {
@@ -82,7 +77,12 @@ public class TextWatcherManager implements TextWatcher {
                 if (isDebug) Log.d(TAG, "* start : " + start + "/ before : " + before + "/ count : " + count + "/ lastedStrLength : " + charSequence.length() + "/ inputStr : " + inputStr);
 
             }else{
-                Toast.makeText(activity, "키보드 타입이 설정되지 않습니다.\n 설정에서 키보드 타입을 설정하세요", Toast.LENGTH_SHORT).show();
+                if(keyboardType.equals("null")){
+                    Toast.makeText(activity, "키보드 타입이 설정되지 않습니다.\n 설정에서 키보드 타입을 설정하세요", Toast.LENGTH_SHORT).show();
+                }else if(testType.equals("null")){
+                    Toast.makeText(activity, "테스트 타입이 설정되지 않았습니다.\n 설정에서 테스트 타입을 설정하세요", Toast.LENGTH_SHORT).show();
+                }
+
             }
 
         } catch (IndexOutOfBoundsException e) {
@@ -117,6 +117,19 @@ public class TextWatcherManager implements TextWatcher {
     public String getKeyboardType() {
         keyboardType = PreferenceManager.getDefaultSharedPreferences(activity).getString("keyboard_type", "null");
         return keyboardType;
+    }
+
+    public void getTestType(){
+        testType = PreferenceManager.getDefaultSharedPreferences(activity).getString("test_type", "KSR_Conversation");
+        testCaseManager.refreshTestType(testType);
+
+    }
+
+    public void nextWord(){
+        testCaseManager.nextWord();
+    }
+    public void prevWord(){
+        testCaseManager.prevWord();
     }
 
 }

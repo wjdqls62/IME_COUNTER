@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/menu_nxt_word"
+        android:title="Next Word"
+        />
+    <item
+        android:id="@+id/menu_prv_word"
+        android:title="Prev Word"
+        />
+    <item
     android:id="@+id/menu_rst_cnt"
     android:title="Rest Count"
     />

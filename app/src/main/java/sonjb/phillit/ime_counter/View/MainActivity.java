@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.widget.Toast;
 
 import sonjb.phillit.ime_counter.R;
+import sonjb.phillit.ime_counter.common.TestCaseManager;
 import sonjb.phillit.ime_counter.common.TextWatcherManager;
 
 
@@ -20,7 +21,6 @@ public class MainActivity extends Activity {
     private final String TAG = "IME_COUNTER";
     private TextWatcherManager textWatcherManager;
     private Activity activity;
-    private SharedPreferences sharedPreferences;
     private long time;
 
     @Override
@@ -34,7 +34,6 @@ public class MainActivity extends Activity {
     private void init(){
         activity = MainActivity.this;
         textWatcherManager = new TextWatcherManager(activity);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     @Override
@@ -56,6 +55,12 @@ public class MainActivity extends Activity {
                 break;
             case R.id.menu_settings :
                 moveSettingActivity();
+                break;
+            case R.id.menu_nxt_word :
+                textWatcherManager.nextWord();
+                break;
+            case R.id.menu_prv_word :
+                textWatcherManager.prevWord();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -80,5 +85,6 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         textWatcherManager.getKeyboardType();
+        textWatcherManager.getTestType();
     }
 }

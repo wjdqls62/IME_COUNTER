@@ -14,7 +14,8 @@
         <LinearLayout
             android:id="@+id/btn_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
             <TextView
                 android:id="@+id/prev_cnt_txv"
                 android:layout_width="wrap_content"
@@ -74,10 +75,6 @@
             android:layout_below="@id/excel_layout"
             android:padding="10dp"
             />
-
-
     </RelativeLayout>
-
-
 
 </android.support.constraint.ConstraintLayout>

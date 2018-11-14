@@ -2,6 +2,8 @@
     <string name="app_name">IME_COUNTER</string>
     <string name="title_activity_settings">Settings</string>
 
+    <string name="excel_path">/sdcard/QA/</string>
+
     <string-array name="pref_keyboard_type">
         <item>Samsung Keyboard</item>
         <item>LG Keyboard</item>
@@ -11,5 +13,16 @@
         <item>SAMSUNG</item>
         <item>LG</item>
         <item>OTHERS</item>
+    </string-array>
+
+    <string-array name="pref_test_type">
+        <item>KSR_Conversation</item>
+        <item>KSR_LG</item>
+        <item>Auto Correction</item>
+    </string-array>
+    <string-array name="pref_test_type_values">
+        <item>KSR_Conversation</item>
+        <item>KSR_LG</item>
+        <item>Auto correction</item>
     </string-array>
 </resources>

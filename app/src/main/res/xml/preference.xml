@@ -8,4 +8,12 @@
         android:entries="@array/pref_keyboard_type"
         android:entryValues="@array/pref_keyboard_type_values">
     </ListPreference>
+    <ListPreference
+        android:key="test_type"
+        android:title="테스트 타입"
+        android:summary="읽어들일 테스트타입(시트명)을 선택하세요"
+        android:defaultValue="KSR_Conversation"
+        android:entries="@array/pref_test_type"
+        android:entryValues="@array/pref_test_type_values">
+    </ListPreference>
 </PreferenceScreen>
