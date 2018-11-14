@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <CheckBoxPreference
-        android:key="auto_write_excel"
-        android:title="Auto Excel Write"
-        android:summary="TC엑셀을 읽어와 자동으로 결과를 Write합니다"
-        android:defaultValue="false"
-        />
+    <ListPreference
+        android:key="keyboard_type"
+        android:title="키보드 타입"
+        android:summary="현재 사용중인 기본 키보드를 선택하세요"
+        android:defaultValue="null"
+        android:entries="@array/pref_keyboard_type"
+        android:entryValues="@array/pref_keyboard_type_values">
+    </ListPreference>
 </PreferenceScreen>

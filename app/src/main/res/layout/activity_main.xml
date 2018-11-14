@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/prev_cnt_btn"
+                android:id="@+id/prev_cnt_txv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Prev : "
@@ -24,9 +24,10 @@
                 android:enabled="false"
                 android:layout_weight="1"
                 android:background="@null"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                />
             <TextView
-                android:id="@+id/current_cnt_btn"
+                android:id="@+id/current_cnt_txv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cur : "
@@ -43,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/btn_layout" >
             <TextView
-                android:id="@+id/original_word"
+                android:id="@+id/typing_word"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="Excel String"

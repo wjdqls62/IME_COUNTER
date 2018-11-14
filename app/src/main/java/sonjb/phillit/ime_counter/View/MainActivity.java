@@ -33,9 +33,7 @@ public class MainActivity extends Activity {
 
     private void init(){
         activity = MainActivity.this;
-        textWatcherManager = new TextWatcherManager(
-                getApplicationContext(),
-                activity);
+        textWatcherManager = new TextWatcherManager(activity);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
@@ -64,8 +62,8 @@ public class MainActivity extends Activity {
     }
 
     private void moveSettingActivity(){
-        //Intent intent = new Intent(this, SettingActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, SettingActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -76,5 +74,11 @@ public class MainActivity extends Activity {
         }else if(System.currentTimeMillis()-time<2000){
             finish();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        textWatcherManager.getKeyboardType();
     }
 }
