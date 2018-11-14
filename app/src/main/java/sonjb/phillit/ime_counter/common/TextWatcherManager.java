@@ -2,6 +2,8 @@ package sonjb.phillit.ime_counter.common;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -11,32 +13,44 @@ import android.view.inputmethod.InputMethod;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import sonjb.phillit.ime_counter.R;
 
 public class TextWatcherManager implements TextWatcher {
     private final String TAG = "IME_COUNTER";
+    private String keyboardType;
     private Activity activity;
-    private boolean isDebug = true;
-    private int currentCnt, prevCount, lastedStrLength, lastedStart = 0;
-    private char inputStr, lastedInputStr;
-    private Button currentBtn, prevBtn, resetBtn, clearBtn;
+
+    private int currentCnt, prevCount = 0;
+    private int lastedStrLength, lastedStart= 0;
+    private char inputStr;
+    private TextView current, prev, typingWord, typingHit;
     private EditText editText;
-    private Context context;
 
+    private boolean isDebug = true;
 
-
-
-    public TextWatcherManager(Context context, Activity activity){
-        this.context = context;
+    public TextWatcherManager(Activity activity) {
         this.activity = activity;
         initView();
     }
 
-    private void initView(){
+    private void initView() {
         editText = activity.findViewById(R.id.edit_text);
+        current = activity.findViewById(R.id.current_cnt_txv);
+        prev = activity.findViewById(R.id.prev_cnt_txv);
+        typingWord = activity.findViewById(R.id.typing_word);
+        typingHit = activity.findViewById(R.id.typing_hit);
+
         editText.addTextChangedListener(this);
+
+        typingWord.setVisibility(View.INVISIBLE);
+        typingHit.setVisibility(View.INVISIBLE);
+
+        getKeyboardType();
+
+
     }
 
     @Override
@@ -46,35 +60,40 @@ public class TextWatcherManager implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-
         try {
-            inputStr = (charSequence.charAt(charSequence.length() -1));
+            if(keyboardType != "null"){
+                inputStr = (charSequence.charAt(charSequence.length() - 1));
+                // 스페이스바 입력
+                if (inputStr == ' ') {
+                    if(!keyboardType.equals("SAMSUNG")){
+                        prevCount += 1;
+                        prev.setText("Prev : " + prevCount);
+                    }
+                    prevCount = currentCnt + 1;
+                    prev.setText("Prev : " + prevCount);
+                    currentCnt = 0;
 
-            // 스페이스바 입력
-            if(inputStr == ' '){
-                prevCount += 1;
-                prevBtn.setText("Prev : " + prevCount);
-                Toast.makeText(context, "Spacebar", Toast.LENGTH_SHORT).show();
-                prevCount = currentCnt + 1;
-                prevBtn.setText("Prev : " + prevCount);
-                currentCnt = 0;
+                } else {
+                    if (inputStr != ' ') {
+                        currentCnt += 1;
+                    }
                 }
-            else{
-                if(inputStr != ' '){
-                    currentCnt += 1;
-                }
+
+                if (isDebug) Log.d(TAG, "* start : " + start + "/ before : " + before + "/ count : " + count + "/ lastedStrLength : " + charSequence.length() + "/ inputStr : " + inputStr);
+
+            }else{
+                Toast.makeText(activity, "키보드 타입이 설정되지 않습니다.\n 설정에서 키보드 타입을 설정하세요", Toast.LENGTH_SHORT).show();
             }
 
-            if (isDebug) {
-                Log.d(TAG, "* start : " + start + "/ before : " + before + "/ count : " + count + "/ lastedStrLength : " + charSequence.length() + "/ inputStr : " + inputStr);
-            }
         } catch (IndexOutOfBoundsException e) {
             Log.d(TAG, "Null value...");
             e.printStackTrace();
         } finally {
-            currentBtn.setText("Cur : " + currentCnt);
-            lastedStrLength = charSequence.length();
-            lastedStart = start;
+            if(keyboardType != "null"){
+                current.setText("Cur : " + currentCnt);
+                lastedStrLength = charSequence.length();
+                lastedStart = start;
+            }
         }
     }
 
@@ -83,15 +102,21 @@ public class TextWatcherManager implements TextWatcher {
 
     }
 
-    public void resetCount(){
+    public void resetCount() {
         currentCnt = 0;
         lastedStrLength = 0;
-        currentBtn.setText("Cur : " + currentCnt);
-        prevBtn.setText("Prev : 0");
+        current.setText("Cur : " + currentCnt);
+        prev.setText("Prev : 0");
     }
 
-    public void clearEditText(){
+    public void clearEditText() {
         editText.setText(null);
         resetCount();
     }
+
+    public String getKeyboardType() {
+        keyboardType = PreferenceManager.getDefaultSharedPreferences(activity).getString("keyboard_type", "null");
+        return keyboardType;
+    }
+
 }
