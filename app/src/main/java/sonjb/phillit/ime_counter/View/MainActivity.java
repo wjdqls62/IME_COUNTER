@@ -64,8 +64,8 @@ public class MainActivity extends Activity {
     }
 
     private void moveSettingActivity(){
-        Intent intent = new Intent(this, SettingActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(this, SettingActivity.class);
+        //startActivity(intent);
     }
 
     @Override

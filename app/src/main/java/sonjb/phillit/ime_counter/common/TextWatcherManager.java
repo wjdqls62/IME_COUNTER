@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import sonjb.phillit.ime_counter.R;
 
-public class TextWatcherManager implements TextWatcher, View.OnClickListener {
+public class TextWatcherManager implements TextWatcher {
     private final String TAG = "IME_COUNTER";
     private Activity activity;
     private boolean isDebug = true;
@@ -36,17 +36,7 @@ public class TextWatcherManager implements TextWatcher, View.OnClickListener {
 
     private void initView(){
         editText = activity.findViewById(R.id.edit_text);
-        currentBtn = activity.findViewById(R.id.current_cnt_btn);
-        prevBtn = activity.findViewById(R.id.prev_cnt_btn);
-        resetBtn = activity.findViewById(R.id.reset_btn);
-        clearBtn = activity.findViewById(R.id.clear_btn);
-
-        //리스너 등록
         editText.addTextChangedListener(this);
-        resetBtn.setOnClickListener(this);
-        clearBtn.setOnClickListener(this);
-
-
     }
 
     @Override
@@ -93,29 +83,15 @@ public class TextWatcherManager implements TextWatcher, View.OnClickListener {
 
     }
 
-    private void resetCount(){
+    public void resetCount(){
         currentCnt = 0;
         lastedStrLength = 0;
         currentBtn.setText("Cur : " + currentCnt);
         prevBtn.setText("Prev : 0");
     }
 
-    private void clearEditText(){
+    public void clearEditText(){
         editText.setText(null);
         resetCount();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            // RST CNT 버튼
-            case R.id.reset_btn:
-                resetCount();
-                break;
-            // Clear 버튼
-            case R.id.clear_btn :
-                clearEditText();
-                break;
-        }
     }
 }
