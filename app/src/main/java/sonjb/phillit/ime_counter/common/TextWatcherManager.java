@@ -61,10 +61,10 @@ public class TextWatcherManager implements TextWatcher {
                 if (inputStr == ' ') {
                     if(!keyboardType.equals("SAMSUNG")){
                         prevCount += 1;
-                        prev.setText("Prev : " + prevCount);
+                        prev.setText("" + prevCount);
                     }
                     prevCount = currentCnt + 1;
-                    prev.setText("Prev : " + prevCount);
+                    prev.setText("" + prevCount);
                     currentCnt = 0;
                     testCaseManager.nextWord();
 
@@ -90,7 +90,7 @@ public class TextWatcherManager implements TextWatcher {
             e.printStackTrace();
         } finally {
             if(keyboardType != "null"){
-                current.setText("Cur : " + currentCnt);
+                current.setText("" + currentCnt);
                 lastedStrLength = charSequence.length();
                 lastedStart = start;
             }
@@ -105,8 +105,8 @@ public class TextWatcherManager implements TextWatcher {
     public void resetCount() {
         currentCnt = 0;
         lastedStrLength = 0;
-        current.setText("Cur : " + currentCnt);
-        prev.setText("Prev : 0");
+        current.setText("" + currentCnt);
+        prev.setText("");
     }
 
     public void clearEditText() {
